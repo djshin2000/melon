@@ -4,23 +4,51 @@
 <div class="container">
   <form action="" method="post">
     {% csrf_token %}
-    <div class="form-group">
-      <label>검색</label>
-      <div class="form-row">
-        <div class="col">
-          <input type="text" class="form-control" id="keyword" name="keyword">
-        </div>
-        <div class="col">
-          <button type="submit" class="btn btn-primary">검색</button>
-        </div>
+
+    <div class="input-group mb-3">
+      <input type="text"
+             class="form-control"
+             placeholder="search for..."
+             aria-label="Recipient's username"
+             aria-describedby="basic-addon2"
+             id="keyword"
+             name="keyword"
+             value="{{ keyword }}">
+      <div class="input-group-append">
+        <button class="btn btn-primary" type="submit">검색</button>
       </div>
     </div>
   </form>
-  {% if songs %}
+</div>
+<div class="container">
+  {% if songs_from_title %}
   <div>
-    <ul>
-      {% for song in songs %}
-      <li>{{ song }}</li>
+    <h5><span class="badge badge-secondary">제목으로 검색한 노래 결과 ({{ songs_from_title|length }})</span></h5>
+    <ul class="list-group">
+      {% for song in songs_from_title %}
+      <li class="list-group-item">{{ song }}</li>
+      {% endfor %}
+    </ul>
+  </div>
+  {% endif %}
+
+  {% if songs_from_albums %}
+  <div>
+    <h5><span class="badge badge-secondary">앨범으로 검색한 노래 결과 ({{ songs_from_albums|length }})</span></h5>
+    <ul class="list-group">
+      {% for song in songs_from_albums %}
+      <li class="list-group-item">{{ song }}</li>
+      {% endfor %}
+    </ul>
+  </div>
+  {% endif %}
+
+  {% if songs_from_artists %}
+  <div>
+    <h5><span class="badge badge-secondary">아티스트로 검색한 노래 결과 ({{ songs_from_artists|length }})</span></h5>
+    <ul class="list-group">
+      {% for song in songs_from_artists %}
+      <li class="list-group-item">{{ song }}</li>
       {% endfor %}
     </ul>
   </div>
