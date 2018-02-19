@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+  <form action="" method="post">
+    {% csrf_token %}
+    <div class="form-group">
+      <label>검색</label>
+      <div class="form-row">
+        <div class="col">
+          <input type="text" class="form-control" id="search" name="search">
+        </div>
+        <div class="col">
+          <button type="submit" class="btn btn-primary">검색</button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+{% endblock %}
