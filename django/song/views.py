@@ -35,8 +35,10 @@ def song_search(request):
             songs_from_title = Song.objects.filter(title__contains=keyword)
             songs_from_albums = Song.objects.filter(album__title__contains=keyword)
             songs_from_artists = Song.objects.filter(album__artists__name__contains=keyword)
-            context['songs_from_title'] = songs_from_title
-            context['songs_from_albums'] = songs_from_albums
-            context['songs_from_artists'] = songs_from_artists
-            context['keyword'] = keyword
+            context = {
+                'songs_from_title': songs_from_title,
+                'songs_from_albums': songs_from_albums,
+                'songs_from_artists': songs_from_artists,
+                'keyword': keyword,
+            }
     return render(request, 'song/song_search.html', context)
