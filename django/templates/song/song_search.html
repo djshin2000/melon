@@ -2,8 +2,9 @@
 
 {% block content %}
 <div class="container">
-  <form action="" method="post">
-    {% csrf_token %}
+  <h3><a href="{% url 'song:song-search' %}">노래 검색</a></h3>
+  <form action="" method="get">
+    <!--{% csrf_token %}-->
 
     <div class="input-group mb-3">
       <input type="text"

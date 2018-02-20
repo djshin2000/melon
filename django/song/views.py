@@ -23,22 +23,24 @@ def song_search(request):
     #   위 세 변수에 더 위의 조건 3개에 부합하는 쿼리셋을 각각 전달
     #   세 변수를 이용해 검색 결과를 3단으로 분리해서 출력
     #   -> 아티스트로 검색한 노래 결과, 앨범으로 검색한 노래 결과, 제목으로 검색한 노래 결과
+    print(request.GET)
     context = {}
-    if request.method == 'POST':
-        keyword = request.POST['keyword'].strip()
-        if keyword:
-            # songs = Song.objects.filter(
-            #     Q(album__title__contains=keyword) |
-            #     Q(album__artists__name__contains=keyword) |
-            #     Q(title__contains=keyword)
-            # ).distinct()
-            songs_from_title = Song.objects.filter(title__contains=keyword)
-            songs_from_albums = Song.objects.filter(album__title__contains=keyword)
-            songs_from_artists = Song.objects.filter(album__artists__name__contains=keyword)
-            context = {
-                'songs_from_title': songs_from_title,
-                'songs_from_albums': songs_from_albums,
-                'songs_from_artists': songs_from_artists,
-                'keyword': keyword,
-            }
+    # if request.method == 'POST':
+    keyword = request.GET.get('keyword') # dic에 keyword를 가져오고 없으면 null
+
+    if keyword:
+        # songs = Song.objects.filter(
+        #     Q(album__title__contains=keyword) |
+        #     Q(album__artists__name__contains=keyword) |
+        #     Q(title__contains=keyword)
+        # ).distinct()
+        songs_from_title = Song.objects.filter(title__contains=keyword)
+        songs_from_albums = Song.objects.filter(album__title__contains=keyword)
+        songs_from_artists = Song.objects.filter(album__artists__name__contains=keyword)
+        context = {
+            'songs_from_title': songs_from_title,
+            'songs_from_albums': songs_from_albums,
+            'songs_from_artists': songs_from_artists,
+            'keyword': keyword,
+        }
     return render(request, 'song/song_search.html', context)
