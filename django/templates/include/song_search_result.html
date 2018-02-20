@@ -1,0 +1,10 @@
+{% if result %}
+  <div>
+    <h5><span class="badge badge-secondary">{{ type }}명으로 검색 ({{ result|length }})</span></h5>
+    <ul class="list-group">
+      {% for song in result %}
+      <li class="list-group-item">{{ song }}</li>
+      {% endfor %}
+    </ul>
+  </div>
+{% endif %}

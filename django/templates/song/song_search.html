@@ -22,37 +22,10 @@
   </form>
 </div>
 <div class="container">
-  {% if songs_from_title %}
-  <div>
-    <h5><span class="badge badge-secondary">제목으로 검색한 노래 결과 ({{ songs_from_title|length }})</span></h5>
-    <ul class="list-group">
-      {% for song in songs_from_title %}
-      <li class="list-group-item">{{ song }}</li>
-      {% endfor %}
-    </ul>
-  </div>
-  {% endif %}
 
-  {% if songs_from_albums %}
-  <div>
-    <h5><span class="badge badge-secondary">앨범으로 검색한 노래 결과 ({{ songs_from_albums|length }})</span></h5>
-    <ul class="list-group">
-      {% for song in songs_from_albums %}
-      <li class="list-group-item">{{ song }}</li>
-      {% endfor %}
-    </ul>
-  </div>
-  {% endif %}
+  {% include "../include/song_search_result.html" with type="곡" result=songs_from_title only %}
+  {% include "../include/song_search_result.html" with type="앨범" result=songs_from_albums only %}
+  {% include "../include/song_search_result.html" with type="아티스트" result=songs_from_artists only %}
 
-  {% if songs_from_artists %}
-  <div>
-    <h5><span class="badge badge-secondary">아티스트로 검색한 노래 결과 ({{ songs_from_artists|length }})</span></h5>
-    <ul class="list-group">
-      {% for song in songs_from_artists %}
-      <li class="list-group-item">{{ song }}</li>
-      {% endfor %}
-    </ul>
-  </div>
-  {% endif %}
 </div>
 {% endblock %}
