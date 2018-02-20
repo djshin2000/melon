@@ -1,8 +1,8 @@
-{% if result %}
+{% if songs %}
   <div>
-    <h5><span class="badge badge-secondary">{{ type }}명으로 검색 ({{ result|length }})</span></h5>
+    <h5><span class="badge badge-secondary">{{ type }}명으로 검색 ({{ songs|length }})</span></h5>
     <ul class="list-group">
-      {% for song in result %}
+      {% for song in songs %}
       <li class="list-group-item">{{ song }}</li>
       {% endfor %}
     </ul>

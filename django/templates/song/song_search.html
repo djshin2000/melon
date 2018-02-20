@@ -14,7 +14,7 @@
              aria-describedby="basic-addon2"
              id="keyword"
              name="keyword"
-             value="{{ keyword }}">
+             value="{{ request.GET.keyword }}">
       <div class="input-group-append">
         <button class="btn btn-primary" type="submit">검색</button>
       </div>
@@ -23,9 +23,9 @@
 </div>
 <div class="container">
 
-  {% include "../include/song_search_result.html" with type="곡" result=songs_from_title only %}
-  {% include "../include/song_search_result.html" with type="앨범" result=songs_from_albums only %}
-  {% include "../include/song_search_result.html" with type="아티스트" result=songs_from_artists only %}
+  {% for song_info in song_infos %}
+    {% include 'include/song_search_result.html' with type=song_info.type songs=song_info.songs only %}
+  {% endfor %}
 
 </div>
 {% endblock %}
