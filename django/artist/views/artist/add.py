@@ -1,15 +1,10 @@
 import datetime
-
 from django.shortcuts import render, redirect
-from .models import Artist
+from ...models import Artist
 
-
-def artist_list(request):
-    artists = Artist.objects.all()
-    context = {
-        'artists': artists
-    }
-    return render(request, 'artist/artist_list.html', context)
+__all__ = (
+    'artist_add',
+)
 
 
 def artist_add(request):
