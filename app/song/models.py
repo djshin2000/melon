@@ -28,7 +28,7 @@ class Song(models.Model):
 
     @property
     def formatted_release_date(self):
-        #f2017.01.15
+        # f2017.01.15
         return self.release_date.strftime('%Y.%m.%d')
 
     def __str__(self):

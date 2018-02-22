@@ -5,7 +5,7 @@ from artist.models import Artist
 
 class Album(models.Model):
     # 앨범명, 발매일, 장르, 발매사, 기획사, 앨범소개(intro), 평점, 앨범이미지
-
+    melon_id = models.CharField('멜론 Album ID', max_length=20, blank=True, null=True, unique=True)
     title = models.CharField('앨범명', max_length=100)
     img_cover = models.ImageField(
         '커버 이미지',
