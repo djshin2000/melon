@@ -1,5 +1,6 @@
 from django.shortcuts import redirect
 
+from artist.models import Artist
 from crawler.song import SongData
 from song.models import Song
 
@@ -13,16 +14,15 @@ def song_add_from_melon(request):
         song_id = request.POST['song_id']
         song = SongData(song_id)
         song.get_detail()
-        title = song.title
-        genre = song.genre
-        lyrics = song.lyrics
 
+        artist = Artist.objects.update_or_create_from_melon(song.artist_id)
         song, _ = Song.objects.update_or_create(
             melon_id=song_id,
             defaults={
-                'title': title,
-                'genre': genre,
-                'lyrics': lyrics,
+                'title': song.title,
+                'genre': song.genre,
+                'lyrics': song.lyrics,
             }
         )
+        song.artists.add(artist)
         return redirect('song:song-list')
