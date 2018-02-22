@@ -32,9 +32,9 @@ def artist_search_from_melon(request):
     if keyword:
 
         artist_info_list = []
-        URL = 'https://www.melon.com/search/artist/index.htm'
+        url = 'https://www.melon.com/search/artist/index.htm'
         params = {'q': keyword}
-        response = requests.get(URL, params)
+        response = requests.get(url, params)
         soup = BeautifulSoup(response.text, 'lxml')
         for li in soup.select('div.list_atist12.d_artist_list > ul > li'):
             dl = li.select_one('div.atist_info > dl')
