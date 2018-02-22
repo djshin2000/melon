@@ -1,10 +1,23 @@
 {% extends 'base.html' %}
 
 {% block content %}
-  <a href="{% url 'artist:artist-search-from-melon' %}">아티스트 검색하기</a>
+<a href="{% url 'artist:artist-search-from-melon' %}">아티스트 검색하기</a>
+<div class="artist-list-container">
   <ul>
     {% for artist in artists %}
-    <li>{{ artist.name }}</li>
+    <li class="clearfix">
+      <a href="">
+        <img src="{% if artist.img_profile %}{{ artist.img_profile.url }}{% endif %}" alt="" class="cover">
+        <div class="artist-info">
+          <div class="name">{{ artist.name }}</div>
+          <div>{{ artist.nationality }}</div>
+          <div>{{ artist.birth_date }}</div>
+          <div>{{ artist.constellation }}</div>
+          <div>{{ artist.blood_type }}</div>
+        </div>
+      </a>
+    </li>
     {% endfor %}
   </ul>
+</div>
 {% endblock %}

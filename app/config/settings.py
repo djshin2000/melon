@@ -22,6 +22,11 @@ TEMPLATES_DIRS = os.path.join(BASE_DIR, 'templates')
 
 MEDIA_ROOT = os.path.join(ROOT_DIR, '.media')
 MEDIA_URL = '/media/'
+
+STATIC_DIR = os.path.join(BASE_DIR, 'static')
+STATICFILES_DIRS = [
+    STATIC_DIR,
+]
 STATIC_URL = '/static/'
 
 # Quick-start development settings - unsuitable for production
