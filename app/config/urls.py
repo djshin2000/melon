@@ -20,11 +20,14 @@ from django.urls import path, include
 from django.views.generic import TemplateView
 
 from config import views
+from members.views import login_view, logout_view
 
 urlpatterns = [
     # path('', TemplateView.as_view(template_name='index.html')),
     path('', views.index, name='index'),
     path('admin/', admin.site.urls),
+    path('login/', login_view, name='login'),
+    path('logout/', logout_view, name='logout'),
     path('artist/', include('artist.urls')),
     path('song/', include('song.urls')),
     path('album/', include('album.urls')),

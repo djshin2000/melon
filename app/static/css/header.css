@@ -20,6 +20,7 @@ div.header-wrap > header.main-header > .search-container > .input-container {
 div.header-wrap > header.main-header > .search-container > .input-container > input {
   border: 0;
   font-size: 16px;
+  width: 249px;
   height: 34px;
   line-height: 36px;
   color: #333;
