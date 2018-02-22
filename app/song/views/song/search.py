@@ -1,15 +1,14 @@
 from typing import NamedTuple
+
 from django.db.models import Q
-from django.http import HttpResponse
 from django.shortcuts import render
-from .models import Song
+
+from ...models import Song
 
 
-def song_list(request):
-    context = {
-        'song_list': Song.objects.all()
-    }
-    return render(request, 'song/song_list.html', context)
+__all__ = (
+    'song_search',
+)
 
 
 def song_search(request):
@@ -52,11 +51,3 @@ def song_search(request):
                 'songs': Song.objects.filter(q),
             })
     return render(request, 'song/song_search.html', context)
-
-
-def song_add_from_melon(request):
-    # 패키지 분할 (artist랑 똑같은 형태로)
-    # artist_add_from_melon과 같은 기능을 함
-    # song_search_from_melon도 구현
-    # -> 이 안에 'DB에 추가'하는 Form구현
-    pass
