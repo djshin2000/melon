@@ -3,6 +3,7 @@ from album.models import Album
 
 
 class Song(models.Model):
+    melon_id = models.CharField('멜론 Song ID', max_length=20, blank=True, null=True, unique=True)
     # 앨범(foreignkey), 제목, 가사, 장르, 작사, 작곡, 편곡, 가수(foreignkey), 좋아요,
     album = models.ForeignKey(
         Album,
@@ -32,8 +33,10 @@ class Song(models.Model):
 
     def __str__(self):
         # 가수명 - 곡제목(앨범명)
-        return '{artists} - {title} ({album})'.format(
-            artists=', '.join(self.album.artists.values_list('name', flat=True)),
-            title=self.title,
-            album=self.album.title,
-        )
+        if self.album:
+            return '{artists} - {title} ({album})'.format(
+                artists=', '.join(self.album.artists.values_list('name', flat=True)),
+                title=self.title,
+                album=self.album.title,
+            )
+        return self.title

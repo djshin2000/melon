@@ -6,6 +6,11 @@ from .utils.parsing import get_dict_from_dl
 DOMAIN = 'https://www.melon.com'
 
 
+__all__ = (
+    'ArtistData',
+)
+
+
 def require_detail(f):
     def wrap(self, *args, **kwargs):
         if not self.detail:
