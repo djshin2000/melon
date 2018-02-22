@@ -30,10 +30,13 @@ class Song(models.Model):
 
     def __str__(self):
         # 가수명 - 곡제목(앨범명)
-        if self.album:
-            return '{artists} - {title} ({album})'.format(
-                artists=', '.join(self.album.artists.values_list('name', flat=True)),
-                title=self.title,
-                album=self.album.title,
-            )
-        return self.title
+        # if self.album:
+        #     return '{artists} - {title} ({album})'.format(
+        #         artists=', '.join(self.album.artists.values_list('name', flat=True)),
+        #         title=self.title,
+        #         album=self.album.title,
+        #     )
+        return '{title} - {artist}'.format(
+            title=self.title,
+            artist=', '.join(self.artists.values_list('name', flat=True)),
+        )
