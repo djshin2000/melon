@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<a href="{% url 'song:song-search-from-melon' %}">노래 검색하기</a>
   <ul>
     {% for song in song_list %}
     <li>{{ song.title }}</li>

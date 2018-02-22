@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
+  <a href="{% url 'artist:artist-search-from-melon' %}">아티스트 검색하기</a>
   <ul>
     {% for artist in artists %}
     <li>{{ artist.name }}</li>
