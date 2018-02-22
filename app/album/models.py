@@ -1,6 +1,39 @@
-from django.db import models
+from datetime import datetime
+from pathlib import Path
 
-from artist.models import Artist
+import requests
+from django.core.files import File
+from django.db import models
+from io import BytesIO
+
+from crawler.album import AlbumData
+
+
+class AlbumManager(models.Manager):
+    def update_or_create_from_melon_id(self, album_id):
+        album_data = AlbumData(album_id)
+        album_data.get_detail()
+        release_date_str = album_data.release_date
+        url_img_cover = album_data.url_img_cover
+        album, album_created = self.update_or_create(
+            melon_id=album_id,
+            defaults={
+                'title': album_data.title,
+                'release_date': datetime.strptime(
+                    release_date_str, '%Y.%m.%d') if release_date_str else None,
+            }
+        )
+
+        # img 파일 저장
+        binary_data = requests.get(url_img_cover).content
+        temp_file = BytesIO()
+        temp_file.write(binary_data)
+        # seek 함수가 무엇을 하는지 모르겠음
+        temp_file.seek(0)
+        file_name = Path(url_img_cover).name
+        album.img_cover.save(file_name, File(temp_file))
+
+        return album, album_created
 
 
 class Album(models.Model):
@@ -12,7 +45,9 @@ class Album(models.Model):
         upload_to='album',
         blank=True,
     )
-    release_date = models.DateField()
+    release_date = models.DateField('발매일', blank=True, null=True)
+
+    objects = AlbumManager()
 
     @property
     def genre(self):
