@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="signup-container">
+  <form action="" method="post">
+    {% csrf_token %}
+    <input type="text" name="username" placeholder="id">
+    <input type="password" name="password" placeholder="password">
+    <input type="password" name="password2" placeholder="re-password">
+    <button type="submit">가입</button>
+  </form>
+  {% if errors %}
+  <ul>
+  {% for error in errors%}
+    <li>{{ error }}</li>
+  {% endfor %}
+  </ul>
+  {% endif %}
+</div>
+{% endblock %}

@@ -21,13 +21,14 @@
       {% if request.user.is_authenticated %}
       <div>
         <ul>
-          <li>{{ request.user }} 로 로그인 중입니다.</li>
+          <li>내정보({{ request.user }})</li>
           <li><a href="{% url 'logout' %}">Logout</a></li>
         </ul>
       </div>
       {% else %}
       <div>
         <a href="{% url 'login' %}">Login</a>
+        <a href="{% url 'signup' %}">Signup</a>
       </div>
       {% endif %}
       <div class="search-container">
