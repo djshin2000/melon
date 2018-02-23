@@ -5,8 +5,10 @@ import requests
 from django.core.files import File
 from django.db import models
 from io import BytesIO
+import magic
 
 from crawler.artist import ArtistData
+from utils.file import download, get_buffer_ext
 
 
 class ArtistManager(models.Manager):
@@ -37,11 +39,6 @@ class ArtistManager(models.Manager):
         # artist_id가 melon_id에 해당하는 Artist가 이미 있다면
         #   해당 Artist의 내용을 update
         # 없으면 Artist를 생성
-        response = requests.get(url_img_cover)
-        binary_data = response.content
-        temp_file = BytesIO()
-        temp_file.write(binary_data)
-        temp_file.seek(0)
 
         artist, artist_created = self.update_or_create(
             melon_id=artist_id,
@@ -55,7 +52,11 @@ class ArtistManager(models.Manager):
                 'blood_type': blood_type,
             }
         )
-        file_name = Path(url_img_cover).name
+        temp_file = download(url_img_cover)
+        file_name = '{artist_id}.{ext}'.format(
+            artist_id=artist_id,
+            ext=get_buffer_ext(temp_file)
+        )
         artist.img_profile.save(file_name, File(temp_file))
         return artist, artist_created
 

@@ -1,12 +1,10 @@
 from datetime import datetime
-from pathlib import Path
 
-import requests
 from django.core.files import File
 from django.db import models
-from io import BytesIO
 
 from crawler.album import AlbumData
+from utils.file import download, get_buffer_ext
 
 
 class AlbumManager(models.Manager):
@@ -15,6 +13,7 @@ class AlbumManager(models.Manager):
         album_data.get_detail()
         release_date_str = album_data.release_date
         url_img_cover = album_data.url_img_cover
+
         album, album_created = self.update_or_create(
             melon_id=album_id,
             defaults={
@@ -24,15 +23,12 @@ class AlbumManager(models.Manager):
             }
         )
 
-        # img 파일 저장
-        binary_data = requests.get(url_img_cover).content
-        temp_file = BytesIO()
-        temp_file.write(binary_data)
-        # seek 함수가 무엇을 하는지 모르겠음
-        temp_file.seek(0)
-        file_name = Path(url_img_cover).name
+        temp_file = download(url_img_cover)
+        file_name = '{album_id}.{ext}'.format(
+            album_id=album_id,
+            ext=get_buffer_ext(temp_file)
+        )
         album.img_cover.save(file_name, File(temp_file))
-
         return album, album_created
 
 

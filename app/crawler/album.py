@@ -34,20 +34,11 @@ class AlbumData:
         meta = entry.select_one('.meta > dl.list')
         album_meta_dict = get_dict_from_dl(meta, first_text=True)
         release_date = album_meta_dict.get('발매일')
-        img_url_full = wrap_info.select_one('div.thumb > a > img').get('src')
-        img_url_list = re.split('\?', img_url_full)
-        img_url = img_url_list[0]
-
-        # print(title)
-        # print(album_meta_dict)
-        # print(img_url_full)
-        # print(img_url_list[0])
-        # file_name = Path(img_url).name
-        # print(file_name)
+        img_url = wrap_info.select_one('div.thumb > a > img').get('src')
 
         self.title = title
         self.url_img_cover = img_url
         self.release_date = release_date
 
 
-AlbumData(album_id='10096855').get_detail()
+# AlbumData(album_id='10096855').get_detail()
