@@ -1,6 +1,8 @@
 from django.contrib.auth import authenticate, login, logout, get_user_model
 from django.shortcuts import render, redirect
 
+from .forms import SignupForm
+
 User = get_user_model()
 
 
@@ -33,9 +35,12 @@ def logout_view(request):
 
 
 def signup_view(request):
+    form = SignupForm()
     context = {
         'errors': [],
+        'form': form,
     }
+
     if request.method == 'POST':
         username = request.POST['username']
         password = request.POST['password']
