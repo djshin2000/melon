@@ -1,5 +1,7 @@
 import datetime
 from django.shortcuts import render, redirect
+
+from ...forms import ArtistAddForm
 from ...models import Artist
 
 __all__ = (
@@ -10,28 +12,12 @@ __all__ = (
 def artist_add(request):
     context = {}
     if request.method == 'POST':
-        name = request.POST['name']
-        real_name = request.POST['real_name']
-        nationality = request.POST['nationality']
-        year = request.POST['year']
-        month = request.POST['month']
-        day = request.POST['day']
-        constellation = request.POST['constellation']
-        blood_type = request.POST['blood_type']
-        intro = request.POST['intro']
-
-        birth_date = year + '-' + month + '-' + day
-        birth_date = datetime.datetime.strptime(birth_date, '%Y-%m-%d')
-
-        Artist.objects.create(
-            name=name,
-            real_name=real_name,
-            nationality=nationality,
-            birth_date=birth_date,
-            constellation=constellation,
-            blood_type=blood_type,
-            intro=intro,
-        )
-        return redirect('artist:artist-list')
-
+        # multipart/form-data로 전달된 파일은 request.FILES에 들어 있음
+        form = ArtistAddForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('artist:artist-list')
+    else:
+        form = ArtistAddForm()
+    context['artist_add_form'] = form
     return render(request, 'artist/artist_add.html', context)
