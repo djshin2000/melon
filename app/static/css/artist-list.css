@@ -1,3 +1,14 @@
+.artist-list-container > div.artist-sub-menu {
+  margin: 10px 0px;
+  padding: 0px 15px;
+}
+
+.artist-list-container > div.artist-sub-menu > a.btn {
+  font-size: 14px;
+  font-weight: bold;
+  padding: 12px 20px;
+}
+
 .artist-list-container > ul > li {
   float: left;
   width: 50%;

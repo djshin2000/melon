@@ -1,0 +1,31 @@
+.artist-detail-container > ul > li {
+  float: left;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 15px;
+  height: 190px;
+}
+
+.artist-detail-container > ul > li > a {
+  display: inline-block;
+  color: #333;
+  float: left;
+}
+
+.artist-detail-container > ul > li > a > img.cover {
+  float: left;
+  width: 160px;
+  height: 160px;
+  border: 1px solid #ddd;
+}
+
+.artist-detail-container > ul > li > .artist-info {
+  float: left;
+  padding-left: 10px;
+}
+
+.artist-detail-container > ul > li > .artist-info > .name {
+  font-weight: bold;
+  font-size: 1.2rem;
+  margin-bottom: 4px;
+}

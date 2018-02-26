@@ -29,6 +29,21 @@ div.header-wrap > header.main-header > .search-container > .input-container > in
   padding-left: 0;
 }
 
+header.main-header > nav.main-header-nav {
+  float: left;
+}
+
+header.main-header > nav.main-header-nav.nav-right {
+  float: right;
+}
+
+header.main-header > nav.main-header-nav.nav-right > ul > li > a {
+  font-size: 1rem;
+  padding-top: 12px;
+  color: #777;
+  font-weight: normal;
+}
+
 header.main-header > nav.main-header-nav > ul > li {
   float: left;
 }

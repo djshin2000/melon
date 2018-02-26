@@ -1,21 +1,9 @@
-.artist-list-container {
-  > div.artist-sub-menu {
-    margin: 10px 0px;
-    padding: 0px 15px;
-
-    > a.btn {
-      font-size: 14px;
-      font-weight: bold;
-      padding: 12px 20px;
-    }
-  }
-
+.artist-detail-container {
   > ul {
     > li {
       float: left;
-      width: 50%;
+      width: 100%;
       box-sizing: border-box;
-      border-bottom: 1px solid #ddd;
       padding: 15px;
       height: 190px;
 

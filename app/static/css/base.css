@@ -44,3 +44,8 @@ a:hover {
   border: none;
   color: white;
 }
+
+.btn:hover {
+  background-color: #41AF39;
+  color: white;
+}

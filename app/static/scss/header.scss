@@ -33,6 +33,22 @@ div.header-wrap {
 }
 
 header.main-header > nav.main-header-nav {
+  float: left;
+
+  &.nav-right {
+    float: right;
+    > ul {
+      > li {
+        > a{
+          font-size: 1rem;
+          padding-top: 12px;
+          color: #777;
+          font-weight: normal;
+        }
+      }
+    }
+  }
+
   > ul {
     > li {
       float: left;

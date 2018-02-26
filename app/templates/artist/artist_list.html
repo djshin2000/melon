@@ -2,8 +2,10 @@
 
 {% block content %}
 <div class="artist-list-container">
-  <a href="{% url 'artist:artist-add' %}" class="btn">아티스트 추가</a>
-  <a href="{% url 'artist:artist-search-from-melon' %}" class="btn">아티스트 검색</a>
+  <div class="artist-sub-menu">
+    <a href="{% url 'artist:artist-add' %}" class="btn">아티스트 추가</a>
+    <a href="{% url 'artist:artist-search-from-melon' %}" class="btn">아티스트 검색</a>
+  </div>
   <ul>
     {% for artist in artists %}
     <li class="clearfix">
