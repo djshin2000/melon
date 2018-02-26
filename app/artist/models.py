@@ -1,12 +1,7 @@
 from datetime import datetime
-from pathlib import Path
-
-import requests
+from django.conf import settings
 from django.core.files import File
 from django.db import models
-from io import BytesIO
-import magic
-
 from crawler.artist import ArtistData
 from utils.file import download, get_buffer_ext
 
@@ -122,8 +117,54 @@ class Artist(models.Model):
         '소개',
         blank=True,
     )
+    like_users = models.ManyToManyField(
+        settings.AUTH_USER_MODEL,
+        through='ArtistLike',
+        related_name='like_artists',
+        blank=True,
+    )
 
     objects = ArtistManager()
 
     def __str__(self):
         return self.name
+
+    def toggle_like_user(self, user):
+        # query = ArtistLike.objects.filter(artist=self, user=user)
+        # if query.exists():
+        #     query.delete()
+        #     return False
+        # else:
+        #     ArtistLike.objects.create(artist=self, user=user)
+        #     return True
+
+        like, like_created = self.like_user_info_list.get_or_create(user=user)
+        if not like_created:
+            like.delete()
+        return like_created
+
+
+class ArtistLike(models.Model):
+    artist = models.ForeignKey(
+        Artist,
+        related_name='like_user_info_list',
+        on_delete=models.CASCADE,
+    )
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        related_name='like_artist_info_list',
+        on_delete=models.CASCADE,
+    )
+    created_date = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        unique_together = (
+            ('artist', 'user'),
+        )
+
+    def __str__(self):
+        return 'ArtistLike (User: {user}, Artist: {artist}, created: {created})'.format(
+            user=self.user,
+            artist=self.artist,
+            created=self.created_date,
+        )
