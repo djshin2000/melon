@@ -1,8 +1,9 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<a href="{% url 'artist:artist-search-from-melon' %}">아티스트 검색하기</a>
 <div class="artist-list-container">
+  <a href="{% url 'artist:artist-add' %}" class="btn">아티스트 추가</a>
+  <a href="{% url 'artist:artist-search-from-melon' %}" class="btn">아티스트 검색</a>
   <ul>
     {% for artist in artists %}
     <li class="clearfix">
