@@ -1,10 +1,27 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<a href="{% url 'song:song-search-from-melon' %}">노래 검색하기</a>
+<div class="artist-list-container">
+  <div class="artist-sub-menu">
+    <a href="{% url 'song:song-search-from-melon' %}" class="btn">노래 검색하기</a>
+  </div>
+
   <ul>
     {% for song in song_list %}
-    <li>{{ song.title }}</li>
+    <li class="clearfix">
+      <a href="">
+        <img src="{{ song.album.img_cover.url}}" class="cover" alt="">
+      </a>
+      <div class="artist-info">
+        <div class="name">{{ song.title }}</div>
+        <div class="artist">{{ song.artists.all|join:", " }}</div>
+        <div>앨범명: {{ song.album}}</div>
+        <div>장르: {{ song.genre }}</div>
+        <!-- <div>{{ song.lyrics }}</div> -->
+      </div>
+
+    </li>
     {% endfor %}
   </ul>
+</div>
 {% endblock %}
