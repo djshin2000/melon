@@ -2,12 +2,9 @@
 
 {% block content %}
 <div class="artist-list-container">
-  <a href="{% url 'artist:artist-add' %}" class="btn">아티스트 추가</a>
-  <a href="{% url 'artist:artist-search-from-melon' %}" class="btn">아티스트 검색</a>
   <ul>
-    {% for artist in artists %}
     <li class="clearfix">
-      <a href="{% url 'artist:artist-detail' artist_pk=artist.id %}">
+      <a href="">
         <img src="{% if artist.img_profile %}{{ artist.img_profile.url }}{% endif %}" alt="" class="cover">
       </a>
       <div class="artist-info">
@@ -20,6 +17,7 @@
         {% if request.user.is_authenticated %}
         <form action="{% url 'artist:artist-like-toggle' artist_pk=artist.id %}" method="post">
           {% csrf_token %}
+          <input type="hidden" name="next-path" value="{{ request.get_full_path }}">
           {% if request.user in artist.like_users.all %}
           <button type="submit">좋아요 취소</button>
           {% else %}
@@ -34,9 +32,8 @@
         </div>
         {% endif %}
 
-      </div>
+      </div>      
     </li>
-    {% endfor %}
   </ul>
 </div>
 {% endblock %}
