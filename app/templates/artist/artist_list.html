@@ -16,7 +16,18 @@
           <div>{{ artist.constellation }}</div>
           <div>{{ artist.blood_type }}</div>
         </div>
+        {% if request.user.is_authenticated %}
+        <form action="{% url 'artist:artist-like-toggle' artist_pk=artist.id %}" method="post">
+          {% csrf_token %}
+          {% if request.user in artist.like_users.all %}
+          <button type="submit">좋아요 취소</button>
+          {% else %}
+          <button type="submit">좋아요</button>
+          {% endif %}
+        </form>
+        {% endif %}
       </a>
+
 
       <!--<div class="container">-->
         <!--<form action="" method="post">-->
