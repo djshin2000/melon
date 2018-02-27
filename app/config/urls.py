@@ -20,7 +20,7 @@ from django.urls import path, include
 from django.views.generic import TemplateView
 
 from config import views
-from members.views import login_view, logout_view, signup_view
+from members.views import login_view, logout_view, signup_view, facebook_login
 
 urlpatterns = [
     # path('', TemplateView.as_view(template_name='index.html')),
@@ -28,6 +28,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('login/', login_view, name='login'),
     path('logout/', logout_view, name='logout'),
+    path('facebook-login/', facebook_login, name='facebook-login'),
     path('signup/', signup_view, name='signup'),
     path('artist/', include('artist.urls')),
     path('song/', include('song.urls')),

@@ -43,6 +43,9 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 
+FACEBOOK_APP_ID = '1317679271677458'
+FACEBOOK_SECRET_CODE = '13620d6b2ce0feedcc3f11ebac00ad1b'
+
 # Application definition
 
 INSTALLED_APPS = [
