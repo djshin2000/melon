@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load song_extras %}
 
 {% block content %}
 <div class="artist-list-container">
@@ -17,7 +18,7 @@
         <div class="artist">{{ song.artists.all|join:", " }}</div>
         <div>앨범명: {{ song.album}}</div>
         <div>장르: {{ song.genre }}</div>
-        <!-- <div>{{ song.lyrics }}</div> -->
+         <div>{{ song.lyrics|ellipsis_line:4|linebreaksbr }}</div>
 
         {% if request.user.is_authenticated %}
         <form action="{% url 'song:song-like-toggle' song_pk=song.id %}" method="post">
