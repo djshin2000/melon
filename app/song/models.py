@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.db import models
 from album.models import Album
 from artist.models import Artist
@@ -49,6 +50,12 @@ class Song(models.Model):
     title = models.CharField('곡 제목', max_length=100)
     genre = models.CharField('장르', max_length=100)
     lyrics = models.TextField('가사', blank=True)
+    like_users = models.ManyToManyField(
+        settings.AUTH_USER_MODEL,
+        through='SongLike',
+        related_name='like_songs',
+        blank=True
+    )
 
     objects = SongManager()
 
@@ -63,14 +70,39 @@ class Song(models.Model):
         return self.release_date.strftime('%Y.%m.%d')
 
     def __str__(self):
-        # 가수명 - 곡제목(앨범명)
-        # if self.album:
-        #     return '{artists} - {title} ({album})'.format(
-        #         artists=', '.join(self.album.artists.values_list('name', flat=True)),
-        #         title=self.title,
-        #         album=self.album.title,
-        #     )
         return '{title} - {artist}'.format(
             title=self.title,
             artist=', '.join(self.artists.values_list('name', flat=True)),
+        )
+
+    def toggle_like_user(self, user):
+        like, like_created = self.like_user_info_list.get_or_create(user=user)
+        if not like_created:
+            like.delete()
+        return like_created
+
+
+class SongLike(models.Model):
+    song = models.ForeignKey(
+        Song,
+        related_name='like_user_info_list',
+        on_delete=models.CASCADE,
+    )
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        related_name='like_song_info_list',
+        on_delete=models.CASCADE,
+    )
+    created_date = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        unique_together = (
+            ('song', 'user'),
+        )
+
+    def __str__(self):
+        return 'SongLike (User: {user}, Song: {song}, created: {created})'.format(
+            user=self.user,
+            song=self.song,
+            created=self.created_date,
         )

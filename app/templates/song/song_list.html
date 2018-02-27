@@ -18,6 +18,17 @@
         <div>앨범명: {{ song.album}}</div>
         <div>장르: {{ song.genre }}</div>
         <!-- <div>{{ song.lyrics }}</div> -->
+
+        {% if request.user.is_authenticated %}
+        <form action="{% url 'song:song-like-toggle' song_pk=song.id %}" method="post">
+          {% csrf_token %}
+          {% if request.user in song.like_users.all %}
+          <button type="submit">좋아요 취소</button>
+          {% else %}
+          <button type="submit">좋아요</button>
+          {% endif %}
+        </form>
+        {% endif %}
       </div>
 
     </li>
