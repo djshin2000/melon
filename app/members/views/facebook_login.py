@@ -1,6 +1,6 @@
 import requests
 from django.conf import settings
-from django.contrib.auth import get_user_model, login
+from django.contrib.auth import get_user_model, login, authenticate
 from django.http import HttpResponse
 from django.shortcuts import redirect
 
@@ -13,6 +13,13 @@ __all__ = (
 
 
 def facebook_login(request):
+    code = request.GET.get('code')
+    user = authenticate(request, code=code)
+    login(request, user)
+    return redirect('index')
+
+
+def facebook_login_backup(request):
     # code로 부터 AccessToken 가져오기
     url = 'https://graph.facebook.com/v2.12/oauth/access_token'
     params = {
