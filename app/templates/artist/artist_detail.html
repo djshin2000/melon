@@ -35,5 +35,16 @@
       </div>
     </li>
   </ul>
+  <h3>관련 Youtube 영상</h3>
+  <ul class="youtube-search-list">
+    {% for item in youtube_items %}
+    <li>
+      <a href="https://youtu.be/{{ item.id.videoId }}" target="_blank">
+        <img src="{{ item.snippet.thumbnails.medium.url }}" alt="">
+      </a>
+      <div>{{ item.snippet.title }}</div>
+    </li>
+    {% endfor %}
+  </ul>
 </div>
 {% endblock %}
