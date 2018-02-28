@@ -35,6 +35,18 @@
       </div>
     </li>
   </ul>
+  <h3>저당된 youtube 영상</h3>
+  <ul class="youtube-search-list">
+    {% for video in artist.youtube_videos.all %}
+    <li>
+      <a href="https://youtu.be/{{ video.youtube_id }}"target="_blank" >
+        <img src="{{ video.url_thumbnail }}" alt="">
+      </a>
+      <div>{{ video.title }}</div>
+    </li>
+    {% endfor %}
+  </ul>
+
   <h3>관련 Youtube 영상</h3>
   <ul class="youtube-search-list">
     {% for item in youtube_items %}
@@ -43,6 +55,13 @@
         <img src="{{ item.snippet.thumbnails.medium.url }}" alt="">
       </a>
       <div>{{ item.snippet.title }}</div>
+      <form action="{% url 'artist:artist-add-youtube' artist_pk=artist.pk %}" method="post">
+        {% csrf_token %}
+        <input type="hidden" name="youtube_id" value="{{ item.id.videoId }}">
+        <input type="hidden" name="title" value="{{ item.snippet.title }}">
+        <input type="hidden" name="url_thumbnail" value="{{ item.snippet.thumbnail.high.url }}">
+        <button type="submit">DB에 저장</button>
+      </form>
     </li>
     {% endfor %}
   </ul>
