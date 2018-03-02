@@ -21,6 +21,7 @@ from django.views.generic import TemplateView
 
 from config import views
 from members.views import login_view, logout_view, signup_view, facebook_login
+from sms.views import send_sms
 
 urlpatterns = [
     # path('', TemplateView.as_view(template_name='index.html')),
@@ -33,6 +34,7 @@ urlpatterns = [
     path('artist/', include('artist.urls')),
     path('song/', include('song.urls')),
     path('album/', include('album.urls')),
+    path('sms/send/', send_sms, name='send-sms'),
 ]
 # settings.MEDIA_URL('/media/')로 시작하는 요청은
 # document_root인 settings.MEDIA_ROOT폴더(ROOT_DIR/.media)에서 파일을 찾아 리턴해준다

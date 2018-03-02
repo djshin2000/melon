@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="signup-container">
+  <form action="" method="post">
+    {% csrf_token %}
+    <label for="to_number">받는 전화번호</label>
+    <input type="text" name="to_number" id="to_number">
+    <label for="msg">내용</label>
+    <input type="text" name="msg" id="msg">
+    <button type="submit">문자 보내기</button>
+  </form>
+</div>
+{% endblock %}
