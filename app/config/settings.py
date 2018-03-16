@@ -68,6 +68,7 @@ INSTALLED_APPS = [
     # third party
     'corsheaders',
     'django_extensions',
+    'rest_framework',
     # local
     'album.apps.AlbumConfig',
     'artist.apps.ArtistConfig',
