@@ -56,6 +56,13 @@ CORS_ORIGIN_WHITELIST = (
     'localhost:3000',
 )
 
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.TokenAuthentication',
+    )
+}
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -69,6 +76,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'django_extensions',
     'rest_framework',
+    'rest_framework.authtoken',
     # local
     'album.apps.AlbumConfig',
     'artist.apps.ArtistConfig',
