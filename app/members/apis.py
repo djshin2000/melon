@@ -1,5 +1,4 @@
 from django.contrib.auth import authenticate
-import json
 
 from rest_framework.authtoken.models import Token
 from rest_framework.authtoken.serializers import AuthTokenSerializer
