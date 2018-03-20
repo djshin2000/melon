@@ -28,9 +28,9 @@ class ArtistList(generics.ListCreateAPIView):
     serializer_class = ArtistSerializer
     pagination_class = SmallPagination
 
-    def get(self, request, *args, **kwargs):
-        print('request.user:', request.user)
-        return super().get(request, *args, **kwargs)
+    # def get(self, request, *args, **kwargs):
+    #     print('request.user:', request.user)
+    #     return super().get(request, *args, **kwargs)
 
     # def perform_create(self, serializer):
     #     serializer.save()
