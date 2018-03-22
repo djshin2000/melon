@@ -48,6 +48,7 @@ FACEBOOK_SECRET_CODE = '13620d6b2ce0feedcc3f11ebac00ad1b'
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
     'members.backends.FacebookBackend',
+    'members.backends.APIFacebookBackend',
 ]
 
 CORS_ORIGIN_WHITELIST = (
