@@ -1,4 +1,5 @@
 from django.contrib.auth import authenticate
+from rest_framework import permissions
 
 from rest_framework.authtoken.models import Token
 from rest_framework.authtoken.serializers import AuthTokenSerializer
@@ -6,6 +7,9 @@ from rest_framework.exceptions import APIException, AuthenticationFailed
 from rest_framework.renderers import JSONRenderer
 from rest_framework.response import Response
 from rest_framework.views import APIView
+
+from .models import User
+from .serializers import UserSerializer
 
 
 class AuthTokenView(APIView):
@@ -22,6 +26,7 @@ class AuthTokenView(APIView):
         # print('token >>>eastshin>>>', token.key)
         data = {
             'token': token.key,
+            'user': UserSerializer(user).data,
         }
         return Response(data)
 
@@ -38,3 +43,20 @@ class AuthTokenView(APIView):
         # # authenticate에 실패했을 때
         # # raise APIException('authenticate failure~~') <- custom
         # raise AuthenticationFailed()
+
+
+class MyUserDetail(APIView):
+    permission_classes = (
+        permissions.IsAuthenticated,
+    )
+
+    def get(self, request):
+        # print('request.user >>>>>>', request.user)
+        # user = User.objects.get(username=request.user)
+        # data = {
+        #     'user': UserSerializer(user).data,
+        # }
+        # return Response(data)
+
+        serializer = UserSerializer(request.user)
+        return Response(serializer.data)
