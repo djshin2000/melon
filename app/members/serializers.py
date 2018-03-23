@@ -30,7 +30,7 @@ class AccessTokenSerializer(serializers.Serializer):
         if access_token:
             user = authenticate(access_token=access_token)
             if not user:
-                raise serializers.ValidationError('액서스 토큰이 유효하지 않습니다.')
+                raise serializers.ValidationError('액서스 토큰이 올바르지 않습니다.')
         else:
             raise serializers.ValidationError('액서스 토큰이 필요합니다.')
 
